@@ -12,12 +12,16 @@ backed by Supabase.
 - **Auth**: NextAuth.js (credentials provider)
 - **Database**: Supabase (Postgres + optional Storage)
 - **Notifications**: sonner
-- **Deployment**: Render (Dockerfile + `render.yaml`)
+- **Deployment**: Render
+- **API KEY From **: clipdrop apis
 
 The app currently uses a **mock AI upscaler** that simulates processing and returns configurable
 static images. The architecture is ready to be swapped to a real AI upscaling API.
 
 ---
+## Login 
+email:user@gmail.com
+password:demo123
 
 ## Local Setup
 
@@ -183,20 +187,6 @@ keys and model IDs from env vars.
 
 ---
 
-## Deployment on Render
-
-This repo includes a `Dockerfile` and `render.yaml` for deploying on Render.
-
-1. Push the repo to GitHub.
-2. In Render, create a new **Web Service** from the repo.
-3. Render will detect `render.yaml` and use:
-   - Build: `npm install && npm run build`
-   - Start: `npm run start`
-4. Configure the environment variables in the Render dashboard to match your `.env.local`.
-
-The Dockerfile builds a production Next.js image and runs `npm run start` on port 3000.
-
----
 
 ## Assumptions
 
