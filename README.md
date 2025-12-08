@@ -19,6 +19,9 @@ The app currently uses a **mock AI upscaler** that simulates processing and retu
 static images. The architecture is ready to be swapped to a real AI upscaling API.
 
 ---
+## Login 
+email:user@gmail.com
+password:demo123
 
 ## Local Setup
 
