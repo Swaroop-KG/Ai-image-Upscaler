@@ -1,4 +1,5 @@
 import { promises as fs } from "fs";
+import os from "os";
 import path from "path";
 import sharp from "sharp";
 import {
@@ -110,14 +111,12 @@ export async function upscaleImage({
   const upscaledWidth = Math.round(originalWidth * effectiveScale);
   const upscaledHeight = Math.round(originalHeight * effectiveScale);
 
-  const publicDir = path.join(process.cwd(), "public");
-  const upscaledDir = path.join(publicDir, "upscaled");
-  await fs.mkdir(upscaledDir, { recursive: true });
-
+  // Use tmp dir so it works on serverless hosts; we return data URLs to the client.
+  const tmpDir = os.tmpdir();
   const ext = path.extname(filePath) || ".png";
   const base = path.basename(filePath, ext);
   const upscaledFileName = `${base}-upscaled-${factor}x${ext}`;
-  const upscaledPath = path.join(upscaledDir, upscaledFileName);
+  const upscaledPath = path.join(tmpDir, upscaledFileName);
 
   let upscaledUrl = MOCK_UPSCALED_IMAGES[factor] ?? "/mock/upscaled-placeholder.png";
 
@@ -134,9 +133,10 @@ export async function upscaleImage({
         .toFile(upscaledPath);
     }
 
-    // Build a web-accessible URL under /public/upscaled.
-    const relative = upscaledPath.slice(publicDir.length).replace(/\\/g, "/");
-    upscaledUrl = relative.startsWith("/") ? relative : `/${relative}`;
+    // Return as data URL so it is displayable/downloadable without relying on public/ writes.
+    const mime = getMimeFromExt(ext);
+    const buf = await fs.readFile(upscaledPath);
+    upscaledUrl = `data:${mime};base64,${buf.toString("base64")}`;
   } catch (error) {
     // If we have a key, fail loudly so the client knows the AI call failed.
     if (UPSCALE_API_KEY) {

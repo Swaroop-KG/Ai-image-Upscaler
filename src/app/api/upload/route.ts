@@ -52,6 +52,8 @@ export async function POST(request: Request) {
     const filePathOnDisk = path.join(uploadsDir, fileName);
 
     await fs.writeFile(filePathOnDisk, buffer);
+    const mime = file.type || `image/${ext}`;
+    const originalDataUrl = `data:${mime};base64,${buffer.toString("base64")}`;
 
     const dimensions = sizeOf(buffer);
     const originalWidth = dimensions.width ?? 0;
@@ -64,8 +66,6 @@ export async function POST(request: Request) {
       );
     }
 
-    const originalUrl = `/uploads/${fileName}`;
-
     const upscaleResult = await upscaleImage({
       filePath: filePathOnDisk,
       factor,
@@ -74,7 +74,8 @@ export async function POST(request: Request) {
     });
 
     const payload: UpscaleResult = {
-      originalUrl,
+      // Use data URL so it works on platforms where public/ writes aren't served (e.g. serverless).
+      originalUrl: originalDataUrl,
       upscaledUrl: upscaleResult.upscaledUrl,
       originalWidth,
       originalHeight,
