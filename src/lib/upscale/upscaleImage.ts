@@ -42,6 +42,7 @@ async function upscaleViaProvider(
   if (!UPSCALE_API_KEY) {
     throw new Error("Missing REAL_UPSCALE_API_KEY");
   }
+  const apiKey = UPSCALE_API_KEY as string;
 
   const ext = path.extname(inputPath) || ".png";
   const mime = getMimeFromExt(ext);
@@ -57,7 +58,7 @@ async function upscaleViaProvider(
     const response = await fetch(url, {
       method: "POST",
       headers: {
-        "x-api-key": UPSCALE_API_KEY,
+        "x-api-key": apiKey,
       },
       body: formData,
     });
