@@ -13,7 +13,7 @@ backed by Supabase.
 - **Database**: Supabase (Postgres + optional Storage)
 - **Notifications**: sonner
 - **Deployment**: Render
-- **API KEY From **: clipdrop apis
+- API KEY From: clipdrop apis
 
 The app currently uses a **mock AI upscaler** that simulates processing and returns configurable
 static images. The architecture is ready to be swapped to a real AI upscaling API.
@@ -23,7 +23,6 @@ static images. The architecture is ready to be swapped to a real AI upscaling AP
 email:user@gmail.com
 password:demo123
 
-## Local Setup
 
 ### 1. Install dependencies
 
@@ -182,7 +181,7 @@ Implemented in `src/app/api/upload/route.ts`:
 7. Returns JSON with `UpscaleResult` (original/upscaled URLs and dimensions).
 
 To integrate a **real AI upscaler**, replace the logic in `upscaleImage` to call your preferred
-API (e.g. Replicate, Clipdrop) and use the config module `src/lib/upscale/config.ts` to pull API
+Clipdrop API and use the config module `src/lib/upscale/config.ts` to pull API
 keys and model IDs from env vars.
 
 ---
