@@ -10,8 +10,7 @@ backed by Supabase.
 - **Framework**: Next.js (App Router, TypeScript)
 - **UI**: Tailwind CSS + shadcn/ui + lucide-react
 - **Auth**: NextAuth.js (credentials provider)
-- **Database**: Supabase (Postgres + optional Storage)
-- **Notifications**: sonner
+- **Database**: Supabase
 - **Deployment**: Render
 - API KEY From: clipdrop apis
 
