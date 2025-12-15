@@ -127,15 +127,6 @@ Then open http://localhost:3000.
   - File too large
   - Server-side upscaling errors
 
-### Dashboard (`/dashboard`)
-
-- Protected route; requires login
-- Shows a grid of historical upscales from Supabase:
-  - Thumbnail of the upscaled image
-  - Original → upscaled resolutions
-  - Chosen upscale factor
-  - Timestamp
-  - Download button
 
 ---
 
