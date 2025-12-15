@@ -8,7 +8,7 @@ backed by Supabase.
 ## Tech Stack
 
 - **Framework**: Next.js (App Router, TypeScript)
-- **UI**: Tailwind CSS + shadcn/ui + lucide-react
+- **UI**: Tailwind CSS + shadcn/ui 
 - **Auth**: NextAuth.js (credentials provider)
 - **Database**: Supabase
 - **Deployment**: Render
